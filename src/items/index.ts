@@ -26,7 +26,7 @@ $query;
 export function getItems(): Result<Vec<Item>, string> {
     return Result.Ok(itemStorage.values());
 }
-
+$query;
 export function getItem(id: string): Result<Item, string> {
     return match(itemStorage.get(id), {
         Some: (item) => Result.Ok<Item, string>(item),
