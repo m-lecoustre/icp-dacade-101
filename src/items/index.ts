@@ -23,11 +23,11 @@ type ItemPayload = Record<{
 const itemStorage = new StableBTreeMap<string, Item>(0, 44, 1024);
 
 $query;
-export function getTypes(): Result<Vec<Item>, string> {
+export function getItems(): Result<Vec<Item>, string> {
     return Result.Ok(itemStorage.values());
 }
 
-export function getType(id: string): Result<Item, string> {
+export function getItem(id: string): Result<Item, string> {
     return match(itemStorage.get(id), {
         Some: (item) => Result.Ok<Item, string>(item),
         None: () => Result.Err<Item, string>(`No item found with id=${id}`)
