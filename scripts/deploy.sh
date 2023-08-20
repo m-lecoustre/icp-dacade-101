@@ -12,3 +12,7 @@ dfx deploy;
 dfx canister call addItem '(record {"title"= "first Item"; "description"= "This is first item registered here"; "illusatrationURL"= "" })';
 
 dfx canister call addItem '(record {"title"= "other Item"; "description"= "This is second item registered here"; "illusatrationURL"= "src" })';
+
+dfx canister call getItems '()';
+
+# cezarion of 2  suppiers

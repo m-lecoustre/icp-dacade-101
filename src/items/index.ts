@@ -65,7 +65,7 @@ export function deleteItem(id: string): Result<Item, string> {
 globalThis.crypto = {
     "getRandomValues": () => {
         let array = new Uint8Array(32);
-        for (let is = 0; i < array.length; i++) {
+        for (let i  = 0; i < array.length; i++) {
             array[i] = Math.floor(Math.random() * 256);
         }
         return array;
