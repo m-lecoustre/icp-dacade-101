@@ -20,15 +20,15 @@ type ItemPayload = Record<{
     description:    string;
     illustrationURL:    string;
 }>
-const itemStorage = new StableBTreeMap<string, Item>(0, 44, 1024);
+const items = new StableBTreeMap<string, Item>(0, 44, 1024);
 
 $query;
 export function getItems(): Result<Vec<Item>, string> {
-    return Result.Ok(itemStorage.values());
+    return Result.Ok(items.values());
 }
 $query;
 export function getItem(id: string): Result<Item, string> {
-    return match(itemStorage.get(id), {
+    return match(items.get(id), {
         Some: (item) => Result.Ok<Item, string>(item),
         None: () => Result.Err<Item, string>(`No item found with id=${id}`)
     });
@@ -37,16 +37,16 @@ export function getItem(id: string): Result<Item, string> {
 $update;
 export function addItem(payload: ItemPayload): Result<Item, string> {
     const item: Item = { id: uuidv4(), createdAt: ic.time(), updatedAt: Opt.None, ...payload};
-    itemStorage.insert(item.id, item);
+    items.insert(item.id, item);
     return Result.Ok<Item, string>(item);
 }
 
 $update;
 export function updateItem(id: string, payload: ItemPayload): Result<Item, string> {
-    return match(itemStorage.get(id), {
+    return match(items.get(id), {
         Some: (item) => {
             const updatedItem: Item = {...item, ...payload, updatedAt: Opt.Some(ic.time())};
-            itemStorage.insert(item.id, updatedItem);
+            items.insert(item.id, updatedItem);
             return Result.Ok<Item, string>(updatedItem);
         },
         None: () => Result.Err<Item, string>("can't update item cause there is no item with id=${id} found")
@@ -55,7 +55,7 @@ export function updateItem(id: string, payload: ItemPayload): Result<Item, strin
 
 $update;
 export function deleteItem(id: string): Result<Item, string> {
-    return match(itemStorage.remove(id), {
+    return match(items.remove(id), {
         Some: (item) => Result.Ok<Item, string>(item),
         None: () => Result.Err<Item, string>(`can't delete item cause no item with id=${id} found`)
     });
@@ -65,7 +65,7 @@ export function deleteItem(id: string): Result<Item, string> {
 globalThis.crypto = {
     "getRandomValues": () => {
         let array = new Uint8Array(32);
-        for (let i = 0; i < array.length; i++) {
+        for (let is = 0; i < array.length; i++) {
             array[i] = Math.floor(Math.random() * 256);
         }
         return array;
