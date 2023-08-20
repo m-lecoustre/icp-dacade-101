@@ -15,4 +15,17 @@ dfx canister call addItem '(record {"title"= "other Item"; "description"= "This 
 
 dfx canister call getItems '()';
 
-# cezarion of 2  suppiers
+# creation of 4 suppliers
+
+dfx canister call suppliers addSupplier '(record: {"name"= "Supplier 1 })';
+
+dfx canister call suppliers addSupplier '(record {"name" = "Toto" })';
+
+dfx canister call suppliers addSupplier '(record {"name" = "Momo Supply" })';
+
+dfx canister call suppliers addSupplier '(record {"name" = "Titi" })';
+
+# Display all item & suppliers records
+
+dfx canister call items getItems '()';
+dfx canister call suppliers getSuppliers '()';
