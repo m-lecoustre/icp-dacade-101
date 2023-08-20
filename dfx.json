@@ -8,15 +8,6 @@
       "ts": "src/items/index.ts",
       "candid": "src/items/index.did",
       "wasm": ".azle/items/items.wasm.gz"
-    },
-    "suppliers": {
-      "main": "src/suppliers/index.ts",
-      "type": "custom",
-      "build": "npx azle suppliers",
-      "root": "src",
-      "ts": "srx/suppliers/index.ts",
-      "candid": "src/suppliers/index.did",
-      "wasm": ".azle/suppliers/suppliers.wasm.gz"
     }
   }
 }
